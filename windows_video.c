@@ -1,10 +1,21 @@
 
-// 版权声明区域
-
-// ----------------------------------------------------------------------------------------------------
-
-// ----------------------------------------------------------------------------------------------------
-// include区域
+/**
+ * <one line to give the program's name and a brief idea of what it does.>
+ * Copyright (C) 2022  xystd
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 #include <stdio.h>						// 标准输入输出
 #include <stdlib.h>						// 标准库
@@ -101,9 +112,11 @@ void *func1(void *arg)
 		{
 			// 稍微等待一会儿
 			// Sleep(10);
+			// 算了，不等了
 			// 将显示器内容复制到内存
 			BitBlt(cdc, 0, 0, screen_w, screen_h, dc, 0, 0, SRCCOPY);
 			GetBitmapBits(bmp, screen_w * screen_h * 4, screenshot);
+			// 交换红、蓝通道以便保存
 			for (int i = 0; i < screen_w * screen_h * 4; i += 4)
 			{
 				unsigned char a = screenshot[i];
@@ -135,6 +148,9 @@ int main(int argc, char **argv)
 	screen_h = GetSystemMetrics(SM_CYSCREEN);
 
 	// 设置viewport位置，窗口会显示在viewport指定的区域内
+	// 你可以使用
+	// viewport_w = screen_w; viewport_h = screen_h;
+	// 来使整个主显示器成为窗口的放置区域
 	viewport_offset_x = 0;
 	viewport_offset_y = 0;
 	viewport_w = 1280;
@@ -146,6 +162,106 @@ int main(int argc, char **argv)
 	window_spacing = 5;
 	// 自动截图，会在每帧刷新完时保存主显示器(这里注意!)为图片
 	auto_screenshot = true;
+
+	// gpl3协议的声明，请尊重开源协议，不要随意修改此处的内容
+	if (MessageBox(NULL, "\
+xystd windows_video V1.0  Copyright (C) 2022  xystd\n\
+This program comes with ABSOLUTELY NO WARRANTY; for details click `yes\'.\n\
+This is free software, and you are welcome to redistribute it\n\
+under certain conditions; click `yes\' for details.\n\
+",
+				   "关于window_video", MB_YESNO) == IDYES)
+
+	{
+		MessageBox(NULL, "\
+  4. Conveying Verbatim Copies.\n\
+\n\
+  You may convey verbatim copies of the Program\'s source code as you\n\
+receive it, in any medium, provided that you conspicuously and\n\
+appropriately publish on each copy an appropriate copyright notice;\n\
+keep intact all notices stating that this License and any\n\
+non-permissive terms added in accord with section 7 apply to the code;\n\
+keep intact all notices of the absence of any warranty; and give all\n\
+recipients a copy of this License along with the Program.\n\
+\n\
+  You may charge any price or no price for each copy that you convey,\n\
+and you may offer support or warranty protection for a fee.\n\
+\n\
+  5. Conveying Modified Source Versions.\n\
+\n\
+  You may convey a work based on the Program, or the modifications to\n\
+produce it from the Program, in the form of source code under the\n\
+terms of section 4, provided that you also meet all of these conditions:\n\
+\n\
+    a) The work must carry prominent notices stating that you modified\n\
+    it, and giving a relevant date.\n\
+\n\
+    b) The work must carry prominent notices stating that it is\n\
+    released under this License and any conditions added under section\n\
+    7.  This requirement modifies the requirement in section 4 to\n\
+    \"keep intact all notices\".\n\
+\n\
+    c) You must license the entire work, as a whole, under this\n\
+    License to anyone who comes into possession of a copy.  This\n\
+    License will therefore apply, along with any applicable section 7\n\
+    additional terms, to the whole of the work, and all its parts,\n\
+    regardless of how they are packaged.  This License gives no\n\
+    permission to license the work in any other way, but it does not\n\
+    invalidate such permission if you have separately received it.\n\
+\n\
+    d) If the work has interactive user interfaces, each must display\n\
+    Appropriate Legal Notices; however, if the Program has interactive\n\
+    interfaces that do not display Appropriate Legal Notices, your\n\
+    work need not make them do so.\n\
+\n\
+  A compilation of a covered work with other separate and independent\n\
+works, which are not by their nature extensions of the covered work,\n\
+and which are not combined with it such as to form a larger program,\n\
+in or on a volume of a storage or distribution medium, is called an\n\
+\"aggregate\" if the compilation and its resulting copyright are not\n\
+used to limit the access or legal rights of the compilation\'s users\n\
+beyond what the individual works permit.  Inclusion of a covered work\n\
+in an aggregate does not cause this License to apply to the other\n\
+parts of the aggregate.\n\
+",
+				   "关于window_video",
+				   MB_OK);
+		MessageBox(NULL, "\
+  15. Disclaimer of Warranty.\n\
+\n\
+  THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY\n\
+APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT\n\
+HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM \"AS IS\" WITHOUT WARRANTY\n\
+OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,\n\
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\n\
+PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM\n\
+IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF\n\
+ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\n\
+\n\
+  16. Limitation of Liability.\n\
+\n\
+  IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING\n\
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS\n\
+THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY\n\
+GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE\n\
+USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF\n\
+DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD\n\
+PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),\n\
+EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF\n\
+SUCH DAMAGES.\n\
+\n\
+  17. Interpretation of Sections 15 and 16.\n\
+\n\
+  If the disclaimer of warranty and limitation of liability provided\n\
+above cannot be given local legal effect according to their terms,\n\
+reviewing courts shall apply local law that most closely approximates\n\
+an absolute waiver of all civil liability in connection with the\n\
+Program, unless a warranty or assumption of liability accompanies a\n\
+copy of the Program in return for a fee.\n\
+",
+				   "关于window_video",
+				   MB_OK);
+	}
 
 	// 如果开启自动截图
 	if (auto_screenshot)
